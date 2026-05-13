@@ -3,3 +3,8 @@ title: "FinalLab"
 format: html
 ---
 
+### Load in data
+```{r}
+load("bwght.RData")
+```
+
