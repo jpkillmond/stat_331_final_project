@@ -1,5 +1,5 @@
 ---
-title: "FinalLab"
+title: "Final Lab"
 format: html
 ---
 
