@@ -1,10 +1,76 @@
 ---
 title: "Final Lab"
-format: html
+author: "Cole Stanford and JP Killmond"
+format: 
+  html:
+    embed-resources: true
+    code-tools: true
+    toc: true
+    html-table-processing: none
+editor: source
+execute: 
+  error: true
+  echo: true
+  message: false
+  warning: false
 ---
 
-### Load in data
+## The Data
+
+For this lab, we will be using the Wooldridge bwght dataset. It is a cross-sectional dataset often used in introductory econometrics to study how family, parental, and pregnancy-related factors are associated with infant birth weight. The dataset contains 1388 observations and 14 variables. Each observation represents one child, with information on its birth weight. Additionally, each observation has data on family information that could contribute to the baby's birth weight, including income, parental education, birth order, sex, race, and the number of cigarettes smoked a day by the mother.
+
+The data is in a .RData so it is easy to access. The data includes a data frame named `data`, which contains the information described above. It also includes a data frame named `desc`, which serves as a useful quick reference.
+
+
+The data dictionary for this dataset can be accessed here: https://justinmshea.github.io/wooldridge/reference/bwght.html
+
+
+## Question 0: Data & Package Loading
 ```{r}
-load("bwght.RData")
+  #load("bwght.RData")
+  #library(tidyverse)
+  #library(knitr)
 ```
 
+## Question 1: Data Cleansing
+
+**Using relevant dplyr verbs in a single pipeline, do the following: 1) create a new variable reflecting the relationships between family income and state cigarette prices, 2) create a new variable categorizing the amount of pregnancy cigarettes per day into low, medium, and high categories, and 3) change parity to a factor variable with sensible levels.**
+```{r}
+  
+```
+
+## Question 2: lm function
+
+**Use the `lm()` function in R to create a linear model for the effect of the mother smoking cigarettes, `cigs` on the birth weight of the baby in ounces, `bwght`. Create another linear model that adds controls for `faminc`, `fatheduc`, `motheduc`, `parity`, `maler`, `white`.**
+
+```{r}
+
+```
+
+## Question 3: function writing
+
+**Write a function `estimate_att` that takes a linear model and a data frame as the input and returns the estimated treatment effect for the treated population (ATT).** This will take a couple steps. The ATT is the average effect for individuals who receive treatment. In this scenario, the treatment is smoking cigarettes. 
+
+**3a. Copy the second linear model you made in question 4 to the code chunk below. Change the code so that the data referenced is a subset of the with only mothers that do not smoke. Store this model into a variable This variable will be the input for the function you write in step 4b**
+
+```{r}
+
+```
+
+
+**2b. Write the function to predict the ATT, as described in 4. The linear model the function uses will already be created from step 5a.**
+
+Steps:
+
+1. Use the model from the function input to predict the potential result of not smoking for the entire population.
+2. Subtract the results of the model from the actual results. 
+3. Add the results of step 3 to a new column in the data set called `ITE`. 
+4. Calculate the mean of the `ITE` column for individuals with `cigs` equal to zero. This value should be returned.
+
+::: callout-tip
+You will want to check out the `predict()` function to help with step 1.
+:::
+
+```{r}
+
+```
