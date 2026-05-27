@@ -19,7 +19,7 @@ execute:
 
 For this lab, we will be using the Wooldridge bwght dataset. It is a cross-sectional dataset often used in introductory econometrics to study how family, parental, and pregnancy-related factors are associated with infant birth weight. The dataset contains 1388 observations and 14 variables. Each observation represents one child, with information on its birth weight. Additionally, each observation has data on family information that could contribute to the baby's birth weight, including income, parental education, birth order, sex, race, and the number of cigarettes smoked a day by the mother.
 
-The data is in a .RData so it is easy to access. The data includes a data frame named `data`, which contains the information described above. It also includes a data frame named `desc`, which serves as a useful quick reference.
+The data is in a .RData so it is easy to access. The data includes a data frame named `data`, which contains the information described above. It also includes a data frame named `desc`, which serves as a data dictionary.
 
 
 The data dictionary for this dataset can be accessed here: https://justinmshea.github.io/wooldridge/reference/bwght.html
@@ -27,9 +27,9 @@ The data dictionary for this dataset can be accessed here: https://justinmshea.g
 
 ## Question 0: Data & Package Loading
 ```{r}
-  #load("bwght.RData")
-  #library(tidyverse)
-  #library(knitr)
+  load("bwght.RData")
+  library(tidyverse)
+  library(knitr)
 ```
 
 ## Question 1: Data Cleansing
@@ -51,14 +51,14 @@ The data dictionary for this dataset can be accessed here: https://justinmshea.g
 
 **Write a function `estimate_att` that takes a linear model and a data frame as the input and returns the estimated treatment effect for the treated population (ATT).** This will take a couple steps. The ATT is the average effect for individuals who receive treatment. In this scenario, the treatment is smoking cigarettes. 
 
-**3a. Copy the second linear model you made in question 4 to the code chunk below. Change the code so that the data referenced is a subset of the with only mothers that do not smoke. Store this model into a variable This variable will be the input for the function you write in step 4b**
+**3a. Copy the second linear model you made in question 2 to the code chunk below. Change the code so that the data referenced is a subset of the with only mothers that do not smoke. Store this model into a variable This variable will be the input for the function you write in step 3b**
 
 ```{r}
 
 ```
 
 
-**2b. Write the function to predict the ATT, as described in 4. The linear model the function uses will already be created from step 5a.**
+**3b. Write the function to predict the ATT, as described in 3. The linear model the function takes as an argument will already be created from step 2a.**
 
 Steps:
 
