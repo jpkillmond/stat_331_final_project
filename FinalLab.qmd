@@ -65,7 +65,7 @@ Steps:
 1. Use the model from the function input to predict the potential result of not smoking for the entire population.
 2. Subtract the results of the model from the actual results. 
 3. Add the results of step 3 to a new column in the data set called `ITE`. 
-4. Calculate the mean of the `ITE` column for individuals with `cigs` equal to zero. This value should be returned.
+4. Calculate the mean of the `ITE` column for individuals with `cigs` equal to zero. This is the value we want to return.
 
 ::: callout-tip
 You will want to check out the `predict()` function to help with step 1.
