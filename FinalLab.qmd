@@ -34,9 +34,10 @@ The data dictionary for this dataset can be accessed here: https://justinmshea.g
 
 ## Question 1: Data Cleansing
 
-**Using relevant dplyr verbs in a single pipeline, do the following: 1) create a new variable reflecting the relationships between family income and state cigarette prices, 2) remove `lbwght`, `bwghtlbs`, `packs`, and `lfaminc` from the dataset, 3) create a new variable fam_educ which is the sum of the mother's and father's education**
+**Using relevant dplyr verbs in a single pipeline, do the following: 1) create a new variable reflecting the affordability relationship between family income and state cigarette prices, 2) remove `lbwght`, `bwghtlbs`, `packs`, and `lfaminc` from the dataset, 3) create a new variable fam_educ which is the sum of the mother's and father's education**
 ```{r}
 data <- data |>
+  mutate(affordability = faminc / cigprice) |> 
   select(faminc: cigs) |>
   mutate(fam_educ = motheduc + fatheduc)
 ```
