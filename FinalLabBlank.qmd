@@ -19,7 +19,7 @@ execute:
   warning: false
 ---
 
-## The Data
+### The Data
 
 For this lab, we will be using the Wooldridge bwght dataset. It is a cross-sectional dataset often used in introductory econometrics to study how family, parental, and pregnancy-related factors are associated with infant birth weight. The dataset contains 1388 observations and 14 variables. Each observation represents one child, with information on its birth weight. Additionally, each observation has data on family information that could contribute to the baby's birth weight, including income, parental education, birth order, sex, race, and the number of cigarettes smoked a day by the mother.
 
@@ -29,7 +29,7 @@ The data is in a .RData so it is easy to access. The data includes a data frame 
 The data dictionary for this dataset can be accessed here: https://justinmshea.github.io/wooldridge/reference/bwght.html
 
 
-## Question 0: Data & Package Loading
+### Question 0: Data & Package Loading
 ```{r}
 # Data
 load("bwght.RData")
@@ -42,14 +42,14 @@ library(gt)
 ```
 
 
-## Question 1: Data Cleansing
+### Question 1: Data Cleansing
 
 **Using relevant dplyr verbs in a single pipeline, do the following: 1) create a new variable reflecting the affordability relationship between family income and state cigarette prices, 2) remove `lbwght`, `bwghtlbs`, `packs`, and `lfaminc` from the dataset, 3) create a new variable fam_educ which is the sum of the mother's and father's education**
 ```{r}
 
 ```
 
-## Question 2: Factor and Dummy Variable Creation Using case_when()
+### Question 2: Factor and Dummy Variable Creation Using case_when()
 
 **Create a new factor variable `cig_level`, which reflects the the number of cigarettes smoked by the mother. 0 is "none", 1-3 is "low", 4-9 is "moderate", 10-20 is "high", and 20+ is "very high. Additionally, create a dummy variable called `treat`. This will be 0 if the mother doesn't smoke and 1 if the mother does smoke. Do this in one pipeline."**
 
@@ -58,7 +58,7 @@ library(gt)
 ```
 
 
-## Question 3: lm function
+### Question 3: lm function
 
 **Use the `lm()` function in R to create a linear model for the effect of the mother smoking cigarettes, `cigs` on the birth weight of the baby in ounces, `bwght`. Create another linear model that adds controls for `faminc`, `fatheduc`, `motheduc`, `parity`, `male`, `white`.**
 
@@ -66,7 +66,7 @@ library(gt)
 
 ```
 
-## Question 4: Function Writing and Subsetting Data
+### Question 4: Function Writing and Subsetting Data
 
 **Write a function `estimate_att` that takes a linear model and a data frame as the input and returns the estimated treatment effect for the treated population (ATT).** This will take a couple steps. The ATT is the average effect for individuals who receive treatment. In this scenario, the treatment is smoking cigarettes. 
 
@@ -101,14 +101,14 @@ You will want to check out the `predict()` function to help with step 1.
 estimate_att(mod, data)
 ```
 
-## Question 5: Table Creation 
+### Question 5: Table Creation 
 **Create a table that shows, for each level of `cig_level`, the average `bwght`, `motheduc`, `fatheduc`, and `cigprice`. Order the table from highest to lowest baby birth weight**
 
 ```{r}
 
 ```
 
-## Question 6: Table Formatting
+### Question 6: Table Formatting
 
 **Nicely format the table using `gt` or `kable()` and `kableExtra`**
 
@@ -124,7 +124,7 @@ Your table should include:
 ```
 
 
-## Question 6: ggplot
+### Question 6: ggplot
 
 **Create a scatter plot with an overlaid line of best fit displaying the relationship between the number of daily cigarettes the mother smoked per day while pregnant and the birth weight of the child. Include good formatting (chart title, axis labels, accessibility, etc.). **
 
@@ -133,7 +133,7 @@ Your table should include:
 ```
 
 
-## Question 7: MR plot creation
+### Question 7: MR plot creation
 
 **Explore the relationship between family income, cigarettes smoked during pregnancy, and child birth weight. To do this, create a multiple regression model with two explanatory variables (`cigs` and `faminc`) and one response variable (`bwght`). Your final submission should include your code and a tidy summary of the model. Once you have these, assess how good your model is at predicting a child's birth weight. Support your answer.**
 
