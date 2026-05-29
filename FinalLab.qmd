@@ -106,5 +106,40 @@ Your table should include:
 ```
 
 
+## Question 6: ggplot
+
+**Create a scatterplot with an overlaid line of best fit displaying the relationship between the number of daily cigarettes the mother smoked per day while pregnant and the birth weight of the child. Include good formatting (chart title, axis labels, accessibility, etc.). **
+
+```{r}
+
+data |> 
+  ggplot(mapping = aes(x = cigs,
+                       y = bwght)
+         ) + 
+  geom_point() + 
+  geom_smooth(method = lm) + 
+  labs(title = "Effect of Smoking During Pregnancy on Child Birth Weight",
+       subtitle = "Birth Weight, oz.",
+       y = "",
+       x = "Cigarettes Smoked Daily by Pregnant Mother")
+           
+```
 
 
+## Question 7: MR plot creation
+
+**Explore the relationship between family income, cigarettes smoked during pregnancy, and child birth weight. To do this, create a multiple regression model with two explanatory variables (`cigs` and `faminc`) and one response variable (`bwght`). Your final submission should include your code and a tidy summary of the model. Once you have these, assess how good your model is at predicting a child's birth weight. Support your answer.**
+
+This model is not very good at predicting a child's birth weight. Its adjusted R-squared is only 0.0284. That is, adjusting for the number of predictors in the model (as R-squared always increases with added predictors), only 2.84 percent of the total variation in the data is explained by our model.
+
+:::callout-tip
+Don't overthink the creation of the regression model object, but feel free to check the documentation of the lm() function.
+:::
+
+```{r}
+
+MR_model <- lm(bwght ~ faminc + cigs,
+               data = data)
+summary(MR_model)
+
+```
