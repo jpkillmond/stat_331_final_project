@@ -34,22 +34,26 @@ The data dictionary for this dataset can be accessed here: https://justinmshea.g
 
 ## Question 1: Data Cleansing
 
-**Using relevant dplyr verbs in a single pipeline, do the following: 1) create a new variable reflecting the relationships between family income and state cigarette prices, 2) remove `lbwght`, `bwghtlbs`, `packs`, and `lfaminc` from the dataset, 3) create a dummy variable called `treat`. This will be 0 if the mother smokes and 1 if the mother does smoke.**
+**Using relevant dplyr verbs in a single pipeline, do the following: 1) create a new variable reflecting the relationships between family income and state cigarette prices, 2) remove `lbwght`, `bwghtlbs`, `packs`, and `lfaminc` from the dataset, 3) create a new variable fam_educ which is the sum of the mother's and father's education**
 ```{r}
-  
+data <- data |>
+  select(faminc: cigs) |>
+  mutate(fam_educ = motheduc + fatheduc)
 ```
 
-## Question 2: Factor creation using case_when()
+## Question 2: Factor and dummy variable creation using case_when()
 
-**Create a new factor variable `cig_level`, which reflects the the number of cigarettes smoked by the mother. 0 is "none", 1-3 is "low", 4-9 is "moderate", 10-20 is "high", and 20+ is "very high"
+**Create a new factor variable `cig_level`, which reflects the the number of cigarettes smoked by the mother. 0 is "none", 1-3 is "low", 4-9 is "moderate", 10-20 is "high", and 20+ is "very high. Additionally, create a dummy variable called `treat`. This will be 0 if the mother doesn't smoke and 1 if the mother does smoke. Do this in one pipline."**
 
 ```{r}
 data <- data |>
-  mutate(cig_level = case_when(cigs == 0 ~ "zero",
+  mutate(cig_level = factor(case_when(cigs == 0 ~ "zero",
                                cigs <= 3 ~ "low",
                                cigs <= 9 ~ "moderate",
                                cigs <= 20 ~ "high",
-                               .default = "very high"))
+                               .default = "very high")),
+         treat = case_when(cigs == 0 ~ 0,
+                           .default = 1))
 ```
 
 
@@ -64,15 +68,16 @@ lm(bwght ~ cigs + faminc + fatheduc + motheduc + parity + male + white,
    data = data)
 ```
 
-## Question 4: function writing
+## Question 4: function writing and subsetting data
 
 **Write a function `estimate_att` that takes a linear model and a data frame as the input and returns the estimated treatment effect for the treated population (ATT).** This will take a couple steps. The ATT is the average effect for individuals who receive treatment. In this scenario, the treatment is smoking cigarettes. 
 
 
-**4a. Copy the second linear model you made in question 2 to the code chunk below. Change the code so that the data referenced is a subset of the with only mothers that do not smoke and replace `cigs` with `treat`. Store this model into a variable This variable will be the input for the function you write in step 3b**
+**4a. Copy the second linear model you made in question 2 to the code chunk below. Change the code so that the data referenced is a subset of the with only mothers that do not smoke. Also replace `cigs` with `treat` in the regression. Store this model into a variable This variable will be the input for the function you write in step 3b**
 
 ```{r}
-
+mod <- lm(bwght ~ treat + faminc + fatheduc + motheduc + parity + male + white,
+   data = data[data$treat == 0,])
 ```
 
 
@@ -94,17 +99,18 @@ You will want to check out the `predict()` function to help with step 1.
 ```
 
 
-**5. Create a table that shows, for each level of `cig_level`, the average `bwght`, `motheuc`, `fatheduc`, and `cigprice`. Nicely format it using gt or kableExtra.**
-
-Your table should include:
-
-- Giving nice column names
-- Giving it a title or a caption
+**5. Create a table that shows, for each level of `cig_level`, the average `bwght`, `motheuc`, `fatheduc`, and `cigprice`.**
 
 ```{r}
 
 ```
 
+**6. Nicely format the table using gt or kableExtra.**
+
+Your table should include:
+
+- Giving nice column names
+- Giving it a title or a caption
 
 ## Question 6: ggplot
 
