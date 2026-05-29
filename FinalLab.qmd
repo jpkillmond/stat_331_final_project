@@ -174,7 +174,7 @@ data |>
 
 ## Question 6: ggplot
 
-**Create a scatterplot with an overlaid line of best fit displaying the relationship between the number of daily cigarettes the mother smoked per day while pregnant and the birth weight of the child. Include good formatting (chart title, axis labels, accessibility, etc.). **
+**Create a scatter plot with an overlaid line of best fit displaying the relationship between the number of daily cigarettes the mother smoked per day while pregnant and the birth weight of the child. Include good formatting (chart title, axis labels, accessibility, etc.). **
 
 ```{r}
 
