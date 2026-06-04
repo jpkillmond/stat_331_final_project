@@ -92,7 +92,7 @@ mod <- lm(bwght ~ faminc + fatheduc + motheduc + parity + male + white,
 
 Steps:
 
-1. Use the model from the function input to predict the potential result of not smoking on birth weight for the entire population.
+1. Use the model from the function input to predict the potential result of not smoking on `bwght` for the entire population.
 2. Subtract the actual results (`bwght`) from the prediction. 
 3. Add the results of step 3 to a new column in the data set called `ITE`. 
 4. Calculate the mean of the `ITE` column for individuals with `treat` equal to one This is the value we want to return.
