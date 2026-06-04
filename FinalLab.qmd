@@ -120,7 +120,7 @@ estimate_att(mod, data)
 ```
 
 ### Question 5: Table Creation 
-**Create a table that shows, for each level of `cig_level`, the average `bwght`, `motheduc`, `fatheduc`, and `cigprice`. Order the table from highest to lowest baby birth weight**
+**Create a table that shows, for each level of `cig_level`, the average `bwght`, `motheduc`, `fatheduc`, and `cigprice`. Order the table from highest to lowest `bwght`**
 
 ```{r}
 data |>
@@ -174,7 +174,7 @@ data |>
 
 ### Question 6: ggplot
 
-**Create a scatter plot with an overlaid line of best fit displaying the relationship between the number of daily cigarettes the mother smoked per day while pregnant and the birth weight of the child. Include good formatting (chart title, axis labels, accessibility, etc.). **
+**Create a scatter plot with an overlaid line of best fit displaying the relationship between `cigs` and `bwght`. Include good formatting (chart title, axis labels, accessibility, etc.). **
 
 ```{r}
 
