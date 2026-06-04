@@ -2208,7 +2208,8 @@ vertical-align: -.125em;
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#the-data" id="toc-the-data" class="nav-link active" data-scroll-target="#the-data">The Data</a></li>
+  <li><a href="#the-data" id="toc-the-data" class="nav-link active" data-scroll-target="#the-data">The Data</a>
+  <ul class="collapse">
   <li><a href="#question-0-data-package-loading" id="toc-question-0-data-package-loading" class="nav-link" data-scroll-target="#question-0-data-package-loading">Question 0: Data &amp; Package Loading</a></li>
   <li><a href="#question-1-data-cleansing" id="toc-question-1-data-cleansing" class="nav-link" data-scroll-target="#question-1-data-cleansing">Question 1: Data Cleansing</a></li>
   <li><a href="#question-2-factor-and-dummy-variable-creation-using-case_when" id="toc-question-2-factor-and-dummy-variable-creation-using-case_when" class="nav-link" data-scroll-target="#question-2-factor-and-dummy-variable-creation-using-case_when">Question 2: Factor and Dummy Variable Creation Using case_when()</a></li>
@@ -2218,6 +2219,7 @@ vertical-align: -.125em;
   <li><a href="#question-6-table-formatting" id="toc-question-6-table-formatting" class="nav-link" data-scroll-target="#question-6-table-formatting">Question 6: Table Formatting</a></li>
   <li><a href="#question-6-ggplot" id="toc-question-6-ggplot" class="nav-link" data-scroll-target="#question-6-ggplot">Question 6: ggplot</a></li>
   <li><a href="#question-7-mr-plot-creation" id="toc-question-7-mr-plot-creation" class="nav-link" data-scroll-target="#question-7-mr-plot-creation">Question 7: MR plot creation</a></li>
+  </ul></li>
   </ul>
 </nav>
 </div>
@@ -2252,10 +2254,9 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="the-data">The Data</h2>
 <p>For this lab, we will be using the Wooldridge bwght dataset. It is a cross-sectional dataset often used in introductory econometrics to study how family, parental, and pregnancy-related factors are associated with infant birth weight. The dataset contains 1388 observations and 14 variables. Each observation represents one child, with information on its birth weight. Additionally, each observation has data on family information that could contribute to the baby’s birth weight, including income, parental education, birth order, sex, race, and the number of cigarettes smoked a day by the mother.</p>
 <p>The data is in a .RData so it is easy to access. The data includes a data frame named <code>data</code>, which contains the information described above. It also includes a data frame named <code>desc</code>, which serves as a data dictionary.</p>
-<p>The data dictionary for this dataset can be accessed here: https://justinmshea.github.io/wooldridge/reference/bwght.html</p>
-</section>
-<section id="question-0-data-package-loading" class="level2">
-<h2 class="anchored" data-anchor-id="question-0-data-package-loading">Question 0: Data &amp; Package Loading</h2>
+<p>The data dictionary for this dataset can be accessed here: <a href="https://justinmshea.github.io/wooldridge/reference/bwght.html">Data Dictionary</a></p>
+<section id="question-0-data-package-loading" class="level3">
+<h3 class="anchored" data-anchor-id="question-0-data-package-loading">Question 0: Data &amp; Package Loading</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;bwght.RData&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2267,8 +2268,8 @@ vertical-align: -.125em;
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="question-1-data-cleansing" class="level2">
-<h2 class="anchored" data-anchor-id="question-1-data-cleansing">Question 1: Data Cleansing</h2>
+<section id="question-1-data-cleansing" class="level3">
+<h3 class="anchored" data-anchor-id="question-1-data-cleansing">Question 1: Data Cleansing</h3>
 <p><strong>Using relevant dplyr verbs in a single pipeline, do the following: 1) create a new variable reflecting the affordability relationship between family income and state cigarette prices, 2) remove <code>lbwght</code>, <code>bwghtlbs</code>, <code>packs</code>, and <code>lfaminc</code> from the dataset, 3) create a new variable fam_educ which is the sum of the mother’s and father’s education</strong></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
@@ -2277,8 +2278,8 @@ vertical-align: -.125em;
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fam_educ =</span> motheduc <span class="sc">+</span> fatheduc)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="question-2-factor-and-dummy-variable-creation-using-case_when" class="level2">
-<h2 class="anchored" data-anchor-id="question-2-factor-and-dummy-variable-creation-using-case_when">Question 2: Factor and Dummy Variable Creation Using case_when()</h2>
+<section id="question-2-factor-and-dummy-variable-creation-using-case_when" class="level3">
+<h3 class="anchored" data-anchor-id="question-2-factor-and-dummy-variable-creation-using-case_when">Question 2: Factor and Dummy Variable Creation Using case_when()</h3>
 <p><strong>Create a new factor variable <code>cig_level</code>, which reflects the the number of cigarettes smoked by the mother. 0 is “none”, 1-3 is “low”, 4-9 is “moderate”, 10-20 is “high”, and 20+ is “very high. Additionally, create a dummy variable called <code>treat</code>. This will be 0 if the mother doesn’t smoke and 1 if the mother does smoke. Do this in one pipeline.”</strong></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
@@ -2291,8 +2292,8 @@ vertical-align: -.125em;
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                           <span class="at">.default =</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="question-3-lm-function" class="level2">
-<h2 class="anchored" data-anchor-id="question-3-lm-function">Question 3: lm function</h2>
+<section id="question-3-lm-function" class="level3">
+<h3 class="anchored" data-anchor-id="question-3-lm-function">Question 3: lm function</h3>
 <p><strong>Use the <code>lm()</code> function in R to create a linear model for the effect of the mother smoking cigarettes, <code>cigs</code> on the birth weight of the baby in ounces, <code>bwght</code>. Create another linear model that adds controls for <code>faminc</code>, <code>fatheduc</code>, <code>motheduc</code>, <code>parity</code>, <code>male</code>, <code>white</code>.</strong></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(bwght <span class="sc">~</span> cigs,</span>
@@ -2322,8 +2323,8 @@ Coefficients:
 </div>
 </div>
 </section>
-<section id="question-4-function-writing-and-subsetting-data" class="level2">
-<h2 class="anchored" data-anchor-id="question-4-function-writing-and-subsetting-data">Question 4: Function Writing and Subsetting Data</h2>
+<section id="question-4-function-writing-and-subsetting-data" class="level3">
+<h3 class="anchored" data-anchor-id="question-4-function-writing-and-subsetting-data">Question 4: Function Writing and Subsetting Data</h3>
 <p><strong>Write a function <code>estimate_att</code> that takes a linear model and a data frame as the input and returns the estimated treatment effect for the treated population (ATT).</strong> This will take a couple steps. The ATT is the average effect for individuals who receive treatment. In this scenario, the treatment is smoking cigarettes.</p>
 <p><strong>4a. Copy the second linear model you made in question 2 to the code chunk below. Change the code so that the data referenced is a subset of the with only mothers that do not smoke. Also delete <code>cigs</code> from the regression. Store this model into a variable This variable will be the input for the function you write in step 3b</strong></p>
 <div class="cell">
@@ -2333,7 +2334,7 @@ Coefficients:
 <p><strong>4b. Write the function to predict the ATT, as described in 3. The linear model the function takes as an argument will already be created from step 2a.</strong></p>
 <p>Steps:</p>
 <ol type="1">
-<li>Use the model from the function input to predict the potential result of not smoking on birth weight for the entire population.</li>
+<li>Use the model from the function input to predict the potential result of not smoking on <code>bwght</code> for the entire population.</li>
 <li>Subtract the actual results (<code>bwght</code>) from the prediction.</li>
 <li>Add the results of step 3 to a new column in the data set called <code>ITE</code>.</li>
 <li>Calculate the mean of the <code>ITE</code> column for individuals with <code>treat</code> equal to one This is the value we want to return.</li>
@@ -2369,9 +2370,9 @@ Tip
 </div>
 </div>
 </section>
-<section id="question-5-table-creation" class="level2">
-<h2 class="anchored" data-anchor-id="question-5-table-creation">Question 5: Table Creation</h2>
-<p><strong>Create a table that shows, for each level of <code>cig_level</code>, the average <code>bwght</code>, <code>motheduc</code>, <code>fatheduc</code>, and <code>cigprice</code>. Order the table from highest to lowest baby birth weight</strong></p>
+<section id="question-5-table-creation" class="level3">
+<h3 class="anchored" data-anchor-id="question-5-table-creation">Question 5: Table Creation</h3>
+<p><strong>Create a table that shows, for each level of <code>cig_level</code>, the average <code>bwght</code>, <code>motheduc</code>, <code>fatheduc</code>, and <code>cigprice</code>. Order the table from highest to lowest <code>bwght</code></strong></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cig_level) <span class="sc">|&gt;</span></span>
@@ -2392,8 +2393,8 @@ Tip
 </div>
 </div>
 </section>
-<section id="question-6-table-formatting" class="level2">
-<h2 class="anchored" data-anchor-id="question-6-table-formatting">Question 6: Table Formatting</h2>
+<section id="question-6-table-formatting" class="level3">
+<h3 class="anchored" data-anchor-id="question-6-table-formatting">Question 6: Table Formatting</h3>
 <p><strong>Nicely format the table using <code>gt</code> or <code>kable()</code> and <code>kableExtra</code></strong></p>
 <p>Your table should include:</p>
 <ul>
@@ -2429,20 +2430,20 @@ Tip
 <span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_number</span>(<span class="at">columns =</span> <span class="fu">c</span>(av_bwght, cig_level, av_motheduc, av_fatheduc, av_cigprice),</span>
 <span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>             <span class="at">decimals =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="ixfyyvliik" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ixfyyvliik table {
+<div id="bbedamliti" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bbedamliti table {
 font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 }
-#ixfyyvliik thead, #ixfyyvliik tbody, #ixfyyvliik tfoot, #ixfyyvliik tr, #ixfyyvliik td, #ixfyyvliik th {
+#bbedamliti thead, #bbedamliti tbody, #bbedamliti tfoot, #bbedamliti tr, #bbedamliti td, #bbedamliti th {
 border-style: none;
 }
-#ixfyyvliik p {
+#bbedamliti p {
 margin: 0;
 padding: 0;
 }
-#ixfyyvliik .gt_table {
+#bbedamliti .gt_table {
 display: table;
 border-collapse: collapse;
 line-height: normal;
@@ -2467,11 +2468,11 @@ border-left-style: none;
 border-left-width: 2px;
 border-left-color: #D3D3D3;
 }
-#ixfyyvliik .gt_caption {
+#bbedamliti .gt_caption {
 padding-top: 4px;
 padding-bottom: 4px;
 }
-#ixfyyvliik .gt_title {
+#bbedamliti .gt_title {
 color: #333333;
 font-size: 125%;
 font-weight: initial;
@@ -2482,7 +2483,7 @@ padding-right: 5px;
 border-bottom-color: #FFFFFF;
 border-bottom-width: 0;
 }
-#ixfyyvliik .gt_subtitle {
+#bbedamliti .gt_subtitle {
 color: #333333;
 font-size: 85%;
 font-weight: initial;
@@ -2493,7 +2494,7 @@ padding-right: 5px;
 border-top-color: #FFFFFF;
 border-top-width: 0;
 }
-#ixfyyvliik .gt_heading {
+#bbedamliti .gt_heading {
 background-color: #FFFFFF;
 text-align: center;
 border-bottom-color: #FFFFFF;
@@ -2504,12 +2505,12 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#ixfyyvliik .gt_bottom_border {
+#bbedamliti .gt_bottom_border {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#ixfyyvliik .gt_col_headings {
+#bbedamliti .gt_col_headings {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -2523,7 +2524,7 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#ixfyyvliik .gt_col_heading {
+#bbedamliti .gt_col_heading {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -2542,7 +2543,7 @@ padding-left: 5px;
 padding-right: 5px;
 overflow-x: hidden;
 }
-#ixfyyvliik .gt_column_spanner_outer {
+#bbedamliti .gt_column_spanner_outer {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -2553,13 +2554,13 @@ padding-bottom: 0;
 padding-left: 4px;
 padding-right: 4px;
 }
-#ixfyyvliik .gt_column_spanner_outer:first-child {
+#bbedamliti .gt_column_spanner_outer:first-child {
 padding-left: 0;
 }
-#ixfyyvliik .gt_column_spanner_outer:last-child {
+#bbedamliti .gt_column_spanner_outer:last-child {
 padding-right: 0;
 }
-#ixfyyvliik .gt_column_spanner {
+#bbedamliti .gt_column_spanner {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
@@ -2570,10 +2571,10 @@ overflow-x: hidden;
 display: inline-block;
 width: 100%;
 }
-#ixfyyvliik .gt_spanner_row {
+#bbedamliti .gt_spanner_row {
 border-bottom-style: hidden;
 }
-#ixfyyvliik .gt_group_heading {
+#bbedamliti .gt_group_heading {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -2598,7 +2599,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 text-align: left;
 }
-#ixfyyvliik .gt_empty_group_heading {
+#bbedamliti .gt_empty_group_heading {
 padding: 0.5px;
 color: #333333;
 background-color: #FFFFFF;
@@ -2612,13 +2613,13 @@ border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 vertical-align: middle;
 }
-#ixfyyvliik .gt_from_md > :first-child {
+#bbedamliti .gt_from_md > :first-child {
 margin-top: 0;
 }
-#ixfyyvliik .gt_from_md > :last-child {
+#bbedamliti .gt_from_md > :last-child {
 margin-bottom: 0;
 }
-#ixfyyvliik .gt_row {
+#bbedamliti .gt_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -2636,7 +2637,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 overflow-x: hidden;
 }
-#ixfyyvliik .gt_stub {
+#bbedamliti .gt_stub {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -2648,7 +2649,7 @@ border-right-color: #D3D3D3;
 padding-left: 5px;
 padding-right: 5px;
 }
-#ixfyyvliik .gt_stub_row_group {
+#bbedamliti .gt_stub_row_group {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -2661,13 +2662,13 @@ padding-left: 5px;
 padding-right: 5px;
 vertical-align: top;
 }
-#ixfyyvliik .gt_row_group_first td {
+#bbedamliti .gt_row_group_first td {
 border-top-width: 2px;
 }
-#ixfyyvliik .gt_row_group_first th {
+#bbedamliti .gt_row_group_first th {
 border-top-width: 2px;
 }
-#ixfyyvliik .gt_summary_row {
+#bbedamliti .gt_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -2676,14 +2677,14 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#ixfyyvliik .gt_first_summary_row {
+#bbedamliti .gt_first_summary_row {
 border-top-style: solid;
 border-top-color: #D3D3D3;
 }
-#ixfyyvliik .gt_first_summary_row.thick {
+#bbedamliti .gt_first_summary_row.thick {
 border-top-width: 2px;
 }
-#ixfyyvliik .gt_last_summary_row {
+#bbedamliti .gt_last_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -2692,7 +2693,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#ixfyyvliik .gt_grand_summary_row {
+#bbedamliti .gt_grand_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -2701,7 +2702,7 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#ixfyyvliik .gt_first_grand_summary_row {
+#bbedamliti .gt_first_grand_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -2710,7 +2711,7 @@ border-top-style: double;
 border-top-width: 6px;
 border-top-color: #D3D3D3;
 }
-#ixfyyvliik .gt_last_grand_summary_row_top {
+#bbedamliti .gt_last_grand_summary_row_top {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -2719,10 +2720,10 @@ border-bottom-style: double;
 border-bottom-width: 6px;
 border-bottom-color: #D3D3D3;
 }
-#ixfyyvliik .gt_striped {
+#bbedamliti .gt_striped {
 background-color: rgba(128, 128, 128, 0.05);
 }
-#ixfyyvliik .gt_table_body {
+#bbedamliti .gt_table_body {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -2730,7 +2731,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#ixfyyvliik .gt_footnotes {
+#bbedamliti .gt_footnotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -2743,7 +2744,7 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#ixfyyvliik .gt_footnote {
+#bbedamliti .gt_footnote {
 margin: 0px;
 font-size: 90%;
 padding-top: 4px;
@@ -2751,7 +2752,7 @@ padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#ixfyyvliik .gt_sourcenotes {
+#bbedamliti .gt_sourcenotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -2764,64 +2765,64 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#ixfyyvliik .gt_sourcenote {
+#bbedamliti .gt_sourcenote {
 font-size: 90%;
 padding-top: 4px;
 padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#ixfyyvliik .gt_left {
+#bbedamliti .gt_left {
 text-align: left;
 }
-#ixfyyvliik .gt_center {
+#bbedamliti .gt_center {
 text-align: center;
 }
-#ixfyyvliik .gt_right {
+#bbedamliti .gt_right {
 text-align: right;
 font-variant-numeric: tabular-nums;
 }
-#ixfyyvliik .gt_font_normal {
+#bbedamliti .gt_font_normal {
 font-weight: normal;
 }
-#ixfyyvliik .gt_font_bold {
+#bbedamliti .gt_font_bold {
 font-weight: bold;
 }
-#ixfyyvliik .gt_font_italic {
+#bbedamliti .gt_font_italic {
 font-style: italic;
 }
-#ixfyyvliik .gt_super {
+#bbedamliti .gt_super {
 font-size: 65%;
 }
-#ixfyyvliik .gt_footnote_marks {
+#bbedamliti .gt_footnote_marks {
 font-size: 75%;
 vertical-align: 0.4em;
 position: initial;
 }
-#ixfyyvliik .gt_asterisk {
+#bbedamliti .gt_asterisk {
 font-size: 100%;
 vertical-align: 0;
 }
-#ixfyyvliik .gt_indent_1 {
+#bbedamliti .gt_indent_1 {
 text-indent: 5px;
 }
-#ixfyyvliik .gt_indent_2 {
+#bbedamliti .gt_indent_2 {
 text-indent: 10px;
 }
-#ixfyyvliik .gt_indent_3 {
+#bbedamliti .gt_indent_3 {
 text-indent: 15px;
 }
-#ixfyyvliik .gt_indent_4 {
+#bbedamliti .gt_indent_4 {
 text-indent: 20px;
 }
-#ixfyyvliik .gt_indent_5 {
+#bbedamliti .gt_indent_5 {
 text-indent: 25px;
 }
-#ixfyyvliik .katex-display {
+#bbedamliti .katex-display {
 display: inline-flex !important;
 margin-bottom: 0.75em !important;
 }
-#ixfyyvliik div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#bbedamliti div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
 height: 0px !important;
 }
 </style>
@@ -2872,9 +2873,9 @@ height: 0px !important;
 </div>
 </div>
 </section>
-<section id="question-6-ggplot" class="level2">
-<h2 class="anchored" data-anchor-id="question-6-ggplot">Question 6: ggplot</h2>
-<p><strong>Create a scatterplot with an overlaid line of best fit displaying the relationship between the number of daily cigarettes the mother smoked per day while pregnant and the birth weight of the child. Include good formatting (chart title, axis labels, accessibility, etc.). </strong></p>
+<section id="question-6-ggplot" class="level3">
+<h3 class="anchored" data-anchor-id="question-6-ggplot">Question 6: ggplot</h3>
+<p><strong>Create a scatter plot with an overlaid line of best fit displaying the relationship between <code>cigs</code> and <code>bwght</code>. Include good formatting (chart title, axis labels, accessibility, etc.). </strong></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cigs,</span>
@@ -2895,8 +2896,8 @@ height: 0px !important;
 </div>
 </div>
 </section>
-<section id="question-7-mr-plot-creation" class="level2">
-<h2 class="anchored" data-anchor-id="question-7-mr-plot-creation">Question 7: MR plot creation</h2>
+<section id="question-7-mr-plot-creation" class="level3">
+<h3 class="anchored" data-anchor-id="question-7-mr-plot-creation">Question 7: MR plot creation</h3>
 <p><strong>Explore the relationship between family income, cigarettes smoked during pregnancy, and child birth weight. To do this, create a multiple regression model with two explanatory variables (<code>cigs</code> and <code>faminc</code>) and one response variable (<code>bwght</code>). Your final submission should include your code and a tidy summary of the model. Once you have these, assess how good your model is at predicting a child’s birth weight. Support your answer.</strong></p>
 <p>This model is not very good at predicting a child’s birth weight. Its adjusted R-squared is only 0.0284. That is, adjusting for the number of predictors in the model (as R-squared always increases with added predictors), only 2.84 percent of the total variation in the data is explained by our model.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -2940,6 +2941,7 @@ F-statistic: 21.27 on 2 and 1385 DF,  p-value: 7.942e-10</code></pre>
 </div>
 <!-- -->
 
+</section>
 </section>
 
 </main>
@@ -3419,10 +3421,10 @@ F-statistic: 21.27 on 2 and 1385 DF,  p-value: 7.942e-10</code></pre>
 <span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>The data is in a .RData so it is easy to access. The data includes a data frame named <span class="in">`data`</span>, which contains the information described above. It also includes a data frame named <span class="in">`desc`</span>, which serves as a data dictionary.</span>
 <span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>The data dictionary for this dataset can be accessed here: https://justinmshea.github.io/wooldridge/reference/bwght.html</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>The data dictionary for this dataset can be accessed here: <span class="co">[</span><span class="ot">Data Dictionary</span><span class="co">](https://justinmshea.github.io/wooldridge/reference/bwght.html)</span></span>
 <span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 0: Data &amp; Package Loading</span></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a><span class="fu">### Question 0: Data &amp; Package Loading</span></span>
 <span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Data</span></span>
 <span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;bwght.RData&quot;</span>)</span>
@@ -3435,7 +3437,7 @@ F-statistic: 21.27 on 2 and 1385 DF,  p-value: 7.942e-10</code></pre>
 <span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-44"><a href="#cb19-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-45"><a href="#cb19-45" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 1: Data Cleansing</span></span>
+<span id="cb19-45"><a href="#cb19-45" aria-hidden="true" tabindex="-1"></a><span class="fu">### Question 1: Data Cleansing</span></span>
 <span id="cb19-46"><a href="#cb19-46" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-47"><a href="#cb19-47" aria-hidden="true" tabindex="-1"></a>**Using relevant dplyr verbs in a single pipeline, do the following: 1) create a new variable reflecting the affordability relationship between family income and state cigarette prices, 2) remove `lbwght`, `bwghtlbs`, `packs`, and `lfaminc` from the dataset, 3) create a new variable fam_educ which is the sum of the mother&#39;s and father&#39;s education**</span>
 <span id="cb19-50"><a href="#cb19-50" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
@@ -3445,7 +3447,7 @@ F-statistic: 21.27 on 2 and 1385 DF,  p-value: 7.942e-10</code></pre>
 <span id="cb19-54"><a href="#cb19-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fam_educ =</span> motheduc <span class="sc">+</span> fatheduc)</span>
 <span id="cb19-55"><a href="#cb19-55" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb19-56"><a href="#cb19-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-57"><a href="#cb19-57" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 2: Factor and Dummy Variable Creation Using case_when()</span></span>
+<span id="cb19-57"><a href="#cb19-57" aria-hidden="true" tabindex="-1"></a><span class="fu">### Question 2: Factor and Dummy Variable Creation Using case_when()</span></span>
 <span id="cb19-58"><a href="#cb19-58" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-59"><a href="#cb19-59" aria-hidden="true" tabindex="-1"></a>**Create a new factor variable `cig_level`, which reflects the the number of cigarettes smoked by the mother. 0 is &quot;none&quot;, 1-3 is &quot;low&quot;, 4-9 is &quot;moderate&quot;, 10-20 is &quot;high&quot;, and 20+ is &quot;very high. Additionally, create a dummy variable called `treat`. This will be 0 if the mother doesn&#39;t smoke and 1 if the mother does smoke. Do this in one pipeline.&quot;**</span>
 <span id="cb19-60"><a href="#cb19-60" aria-hidden="true" tabindex="-1"></a></span>
@@ -3461,7 +3463,7 @@ F-statistic: 21.27 on 2 and 1385 DF,  p-value: 7.942e-10</code></pre>
 <span id="cb19-72"><a href="#cb19-72" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb19-73"><a href="#cb19-73" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-74"><a href="#cb19-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-75"><a href="#cb19-75" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 3: lm function</span></span>
+<span id="cb19-75"><a href="#cb19-75" aria-hidden="true" tabindex="-1"></a><span class="fu">### Question 3: lm function</span></span>
 <span id="cb19-76"><a href="#cb19-76" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-77"><a href="#cb19-77" aria-hidden="true" tabindex="-1"></a>**Use the `lm()` function in R to create a linear model for the effect of the mother smoking cigarettes, `cigs` on the birth weight of the baby in ounces, `bwght`. Create another linear model that adds controls for `faminc`, `fatheduc`, `motheduc`, `parity`, `male`, `white`.**</span>
 <span id="cb19-78"><a href="#cb19-78" aria-hidden="true" tabindex="-1"></a></span>
@@ -3472,7 +3474,7 @@ F-statistic: 21.27 on 2 and 1385 DF,  p-value: 7.942e-10</code></pre>
 <span id="cb19-85"><a href="#cb19-85" aria-hidden="true" tabindex="-1"></a>   <span class="at">data =</span> data)</span>
 <span id="cb19-86"><a href="#cb19-86" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb19-87"><a href="#cb19-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-88"><a href="#cb19-88" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 4: Function Writing and Subsetting Data</span></span>
+<span id="cb19-88"><a href="#cb19-88" aria-hidden="true" tabindex="-1"></a><span class="fu">### Question 4: Function Writing and Subsetting Data</span></span>
 <span id="cb19-89"><a href="#cb19-89" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-90"><a href="#cb19-90" aria-hidden="true" tabindex="-1"></a>**Write a function `estimate_att` that takes a linear model and a data frame as the input and returns the estimated treatment effect for the treated population (ATT).** This will take a couple steps. The ATT is the average effect for individuals who receive treatment. In this scenario, the treatment is smoking cigarettes. </span>
 <span id="cb19-91"><a href="#cb19-91" aria-hidden="true" tabindex="-1"></a></span>
@@ -3489,7 +3491,7 @@ F-statistic: 21.27 on 2 and 1385 DF,  p-value: 7.942e-10</code></pre>
 <span id="cb19-104"><a href="#cb19-104" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-105"><a href="#cb19-105" aria-hidden="true" tabindex="-1"></a>Steps:</span>
 <span id="cb19-106"><a href="#cb19-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-107"><a href="#cb19-107" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Use the model from the function input to predict the potential result of not smoking on birth weight for the entire population.</span>
+<span id="cb19-107"><a href="#cb19-107" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Use the model from the function input to predict the potential result of not smoking on <span class="in">`bwght`</span> for the entire population.</span>
 <span id="cb19-108"><a href="#cb19-108" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Subtract the actual results (<span class="in">`bwght`</span>) from the prediction. </span>
 <span id="cb19-109"><a href="#cb19-109" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Add the results of step 3 to a new column in the data set called <span class="in">`ITE`</span>. </span>
 <span id="cb19-110"><a href="#cb19-110" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Calculate the mean of the <span class="in">`ITE`</span> column for individuals with <span class="in">`treat`</span> equal to one This is the value we want to return.</span>
@@ -3516,8 +3518,8 @@ F-statistic: 21.27 on 2 and 1385 DF,  p-value: 7.942e-10</code></pre>
 <span id="cb19-135"><a href="#cb19-135" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_att</span>(mod, data)</span>
 <span id="cb19-136"><a href="#cb19-136" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb19-137"><a href="#cb19-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-138"><a href="#cb19-138" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 5: Table Creation </span></span>
-<span id="cb19-139"><a href="#cb19-139" aria-hidden="true" tabindex="-1"></a>**Create a table that shows, for each level of `cig_level`, the average `bwght`, `motheduc`, `fatheduc`, and `cigprice`. Order the table from highest to lowest baby birth weight**</span>
+<span id="cb19-138"><a href="#cb19-138" aria-hidden="true" tabindex="-1"></a><span class="fu">### Question 5: Table Creation </span></span>
+<span id="cb19-139"><a href="#cb19-139" aria-hidden="true" tabindex="-1"></a>**Create a table that shows, for each level of `cig_level`, the average `bwght`, `motheduc`, `fatheduc`, and `cigprice`. Order the table from highest to lowest `bwght`**</span>
 <span id="cb19-140"><a href="#cb19-140" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-143"><a href="#cb19-143" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb19-144"><a href="#cb19-144" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
@@ -3529,7 +3531,7 @@ F-statistic: 21.27 on 2 and 1385 DF,  p-value: 7.942e-10</code></pre>
 <span id="cb19-150"><a href="#cb19-150" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(av_bwght))</span>
 <span id="cb19-151"><a href="#cb19-151" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb19-152"><a href="#cb19-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-153"><a href="#cb19-153" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 6: Table Formatting</span></span>
+<span id="cb19-153"><a href="#cb19-153" aria-hidden="true" tabindex="-1"></a><span class="fu">### Question 6: Table Formatting</span></span>
 <span id="cb19-154"><a href="#cb19-154" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-155"><a href="#cb19-155" aria-hidden="true" tabindex="-1"></a>**Nicely format the table using `gt` or `kable()` and `kableExtra`**</span>
 <span id="cb19-156"><a href="#cb19-156" aria-hidden="true" tabindex="-1"></a></span>
@@ -3569,9 +3571,9 @@ F-statistic: 21.27 on 2 and 1385 DF,  p-value: 7.942e-10</code></pre>
 <span id="cb19-192"><a href="#cb19-192" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb19-193"><a href="#cb19-193" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-194"><a href="#cb19-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-195"><a href="#cb19-195" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 6: ggplot</span></span>
+<span id="cb19-195"><a href="#cb19-195" aria-hidden="true" tabindex="-1"></a><span class="fu">### Question 6: ggplot</span></span>
 <span id="cb19-196"><a href="#cb19-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-197"><a href="#cb19-197" aria-hidden="true" tabindex="-1"></a>**Create a scatterplot with an overlaid line of best fit displaying the relationship between the number of daily cigarettes the mother smoked per day while pregnant and the birth weight of the child. Include good formatting (chart title, axis labels, accessibility, etc.). **</span>
+<span id="cb19-197"><a href="#cb19-197" aria-hidden="true" tabindex="-1"></a>**Create a scatter plot with an overlaid line of best fit displaying the relationship between <span class="in">`cigs`</span> and <span class="in">`bwght`</span>. Include good formatting (chart title, axis labels, accessibility, etc.). **</span>
 <span id="cb19-198"><a href="#cb19-198" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-201"><a href="#cb19-201" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb19-202"><a href="#cb19-202" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
@@ -3588,7 +3590,7 @@ F-statistic: 21.27 on 2 and 1385 DF,  p-value: 7.942e-10</code></pre>
 <span id="cb19-213"><a href="#cb19-213" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb19-214"><a href="#cb19-214" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-215"><a href="#cb19-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-216"><a href="#cb19-216" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 7: MR plot creation</span></span>
+<span id="cb19-216"><a href="#cb19-216" aria-hidden="true" tabindex="-1"></a><span class="fu">### Question 7: MR plot creation</span></span>
 <span id="cb19-217"><a href="#cb19-217" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-218"><a href="#cb19-218" aria-hidden="true" tabindex="-1"></a>**Explore the relationship between family income, cigarettes smoked during pregnancy, and child birth weight. To do this, create a multiple regression model with two explanatory variables (`cigs` and `faminc`) and one response variable (`bwght`). Your final submission should include your code and a tidy summary of the model. Once you have these, assess how good your model is at predicting a child&#39;s birth weight. Support your answer.**</span>
 <span id="cb19-219"><a href="#cb19-219" aria-hidden="true" tabindex="-1"></a></span>
