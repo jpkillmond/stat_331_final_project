@@ -172,22 +172,31 @@ data |>
 ```
 
 
-### Question 6: ggplot
+### Question 6: ggplot & Data Ethics
 
-**Create a scatter plot with an overlaid line of best fit displaying the relationship between `cigs` and `bwght`. Include good formatting (chart title, axis labels, accessibility, etc.). **
+![Plot to recreate](ggplot.png)
+
+**Recreate something similar to the above graph showing the relationship of `bwght` and `faminc` across the different levels of `treat` and `male` (i.e., whether the mother smoked during pregnancy and whether the child was male or female). Then, discuss what you observe. Is there one combination of `treat` and `male` levels that appears to particularly strengthen the relationship between `faminc` and `bwght`? Then consider the data ethics concerns present in such a question. Should we make these sort of generalized statements with data? What do we not know about this dataset that we might want to learn before making any sort of general inference about the population?**
 
 ```{r}
 
-data |> 
-  ggplot(mapping = aes(x = cigs,
-                       y = bwght)
-         ) + 
-  geom_point() + 
-  geom_smooth(method = lm) + 
-  labs(title = "Effect of Smoking During Pregnancy on Child Birth Weight",
-       subtitle = "Birth Weight, oz.",
+data |>
+  mutate(
+    status = factor(treat, levels = c(0,1), labels = c("Non-Smoker", "Smoker")),
+    gender = factor(male, levels = c(0,1), labels = c("Female", "Male"))
+  ) |>
+  ggplot(aes(x = faminc, y = bwght,
+             color = status,
+             linetype = gender)) +
+  geom_jitter(alpha = 0.15, size = 0.8, width = 0.8, height = 0) +
+  geom_smooth(method = lm, se = FALSE, linewidth = 1.1) +
+  scale_color_manual(values = c("Non-Smoker" = "#2171b5", "Smoker" = "#d94801")) +
+  scale_linetype_manual(values = c("Female" = "dashed", "Male" = "solid")) +
+  labs(title = "Family Income vs. Birth Weight Across Smoking and Gender Groups",
+       x = "Family Income, $1,000s",
        y = "",
-       x = "Cigarettes Smoked Daily by Pregnant Mother")
+       subtitle = "Birth Weight") +
+  coord_cartesian(ylim = c(50, 150))
            
 ```
 
