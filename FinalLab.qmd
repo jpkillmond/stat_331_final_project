@@ -209,3 +209,13 @@ MR_model <- lm(bwght ~ faminc + cigs,
 summary(MR_model)
 
 ```
+
+
+### Question 8: Inference Using Simulation
+
+**For this question, we are interested in the difference between distributions of birth weights among children with smoking and non-smoking mothers. Create histograms of birth weights for both smoking and non-smoking mothers (you'll need to use the `treat` variable!) and overlay a normal probability distribution with appropriate x-bounds (use maximum and minimum `bwght` values for these bounds). Once you've created these graphics, what do you notice? Does either distribution of birth weights seem to somewhat closely follow the normal distribution? Does one do so more than the other? What might this tell us about the general effects of smoking during pregnancy on child birth weight? Answer in ~3 complete sentences.**
+
+```{r}
+
+```
+
