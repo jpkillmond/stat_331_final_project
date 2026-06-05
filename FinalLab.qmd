@@ -211,11 +211,23 @@ summary(MR_model)
 ```
 
 
-### Question 8: Inference Using Simulation
+### Question 8: Inference Using Model Validation
 
-**For this question, we are interested in the difference between distributions of birth weights among children with smoking and non-smoking mothers. Create histograms of birth weights for both smoking and non-smoking mothers (you'll need to use the `treat` variable!) and overlay a normal probability distribution with appropriate x-bounds (use maximum and minimum `bwght` values for these bounds). Once you've created these graphics, what do you notice? Does either distribution of birth weights seem to somewhat closely follow the normal distribution? Does one do so more than the other? What might this tell us about the general effects of smoking during pregnancy on child birth weight? Answer in ~3 complete sentences.**
+**For this question, we are interested in the difference between the `bwght` of children whose mother did smoke and the `bwght` of children whose mother did not smoke. Specifically, we want to investigate the relative normality of each subset of data. State your conclusions from an examinations of both plots. You may want to discuss the following, along with more general conckusions about the effects of smoking on `bwght`: does either subset of the data appear to be normally distributed? Is one more closely adherent to the normal distribution than the other? Why might that be? Is it possible that other lifestyle factors influencing `bwght` differ more among one group than the other (hint: look at your created table above and think about the differences in other lifestyle facts)?**
 
+::: callout-tip
+To compare relative normality, you'll need to use q-q plots. Look at the documentation for those ggplot geoms for help!
+:::
 ```{r}
+# generating both q-q plots
+
+data |>
+  mutate(treat = factor(treat, labels = c("Non-smoker", "Smoker"))) |>
+  ggplot(aes(sample = bwght)) +
+  geom_qq(color = "blue") +
+  geom_qq_line() +
+  facet_wrap(~ treat) +
+  labs(x = "Birth Weight", y = "")
 
 ```
 
