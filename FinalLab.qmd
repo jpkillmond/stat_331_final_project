@@ -51,13 +51,13 @@ data <- data |>
 
 ### Question 2: Factor and Dummy Variable Creation Using case_when()
 
-**Create a new factor variable `cig_level`, which reflects the the number of cigarettes smoked by the mother. 0 is "none", 1-3 is "low", 4-9 is "moderate", 10-20 is "high", and 20+ is "very high. Additionally, create a dummy variable called `treat`. This will be 0 if the mother doesn't smoke and 1 if the mother does smoke. Do this in one pipeline."**
+**Create a new factor variable `cig_level`, which reflects the the number of cigarettes smoked by the mother. 0 is "none", 1-3 is "low", 4-10 is "moderate", 11-20 is "high", and 21+ is "very high. Additionally, create a dummy variable called `treat`. This will be 0 if the mother doesn't smoke and 1 if the mother does smoke. Do this in one pipeline."**
 
 ```{r}
 data <- data |>
   mutate(cig_level = factor(case_when(cigs == 0 ~ "zero",
                                cigs <= 3 ~ "low",
-                               cigs <= 9 ~ "moderate",
+                               cigs <= 10 ~ "moderate",
                                cigs <= 20 ~ "high",
                                .default = "very high")),
          treat = case_when(cigs == 0 ~ 0,
@@ -71,7 +71,8 @@ data <- data |>
 ```{r}
 data |>
   group_by(cig_level) |>
-  summarize(av_bwght = mean(bwght, na.rm = TRUE),
+  summarize(n(),
+            av_bwght = mean(bwght, na.rm = TRUE),
             av_motheduc = mean(motheduc, na.rm = TRUE),
             av_fatheduc = mean(fatheduc, na.rm = TRUE),
             av_cigprice = mean(cigprice, na.rm = TRUE)) |>
@@ -93,7 +94,8 @@ Your table should include:
 ```{r}
 data |>
   group_by(cig_level) |>
-  summarize(av_bwght = mean(bwght, na.rm = TRUE),
+  summarize(n(),
+            av_bwght = mean(bwght, na.rm = TRUE),
             av_motheduc = mean(motheduc, na.rm = TRUE),
             av_fatheduc = mean(fatheduc, na.rm = TRUE),
             av_cigprice = mean(cigprice, na.rm = TRUE)) |>
@@ -103,6 +105,7 @@ data |>
     title = md("**Average Family Demographics and Baby Birthweight by Number of Cigarettes Smoked While Pregnant**")
   ) |>
   cols_label(
+    "n()" = "Count",
     "cig_level" = "Cigarattes Smoked Per Day",
     "av_bwght" = "Birth Weight",
     "av_motheduc" = "Mother's Years of Education",
