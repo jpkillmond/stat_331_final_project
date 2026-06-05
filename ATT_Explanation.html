@@ -1,0 +1,45 @@
+<section>
+  <p>
+    This question focuses on estimating causal effects. This means that instead of
+    just looking for correlation, we are looking for causation, which often requires more
+    in-depth modeling and assumptions.
+  </p>
+
+  <p>
+    There are two main parameters of interest when estimating causal effects. One is
+    called the <strong>ATE</strong>. This is the average treatment effect for the population.
+    When we run a simple linear regression model on the outcome and treatment variables
+    (in this dataset outcome is <code>bwght</code> and the treatment is smoking cigs) for the
+    whole population, the &beta;<sub>1</sub> coefficient can be interpreted as the average
+    difference in <code>bwght</code> between smokers and non-smokers. Under the right
+    assumptions, this can estimate the ATE.
+  </p>
+
+  <p>
+    The other parameter of interest is called the <strong>ATT</strong>. This is the average
+    treatment effect for the treated. It focuses on the treated group and tries to estimate
+    what their <code>bwght</code> might have been had they not smoked, compared to what it
+    actually is.
+  </p>
+
+  <p>
+    While both the ATE and the ATT are useful for estimating causal effects, they each
+    have scenarios where they are more useful than the other. The ATT can more accurately
+    estimate causal effects in non-experimental settings where the treated and non-treated
+    groups are very different. This is because the differences in characteristics between
+    the treated and control groups can affect both the treatment and outcome likelihood.
+    This is the case with our data. As you can see from the table in questions 3 and 4,
+    the characteristics of the treated (smoking cigs) and non-treated (not smoking cigs)
+    groups are very different. On average, the non-smokers have a higher income and
+    parental education. While controlling for these characteristics using multiple linear
+    regression can help reduce some bias, estimating the ATT is an alternative and
+    sometimes more effective way to do this. This is what this question explores.
+  </p>
+
+  <p>
+    <strong>Note:</strong> Although we just use the <code>estimate_att</code> function once in the
+    problem set, it can be used multiple times in practice to impose the restriction of
+    overlap, which means subsetting the data to make the characteristics of the treated
+    and non-treated more similar, to varying degrees and to run different regression models.
+  </p>
+</section>

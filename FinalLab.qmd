@@ -133,7 +133,7 @@ lm(bwght ~ cigs + faminc + fatheduc + motheduc + parity + male + white,
 
 ### Question 6: Function Writing and Subsetting Data
 
-**Write a function `estimate_att` that takes a linear model and a data frame as the input and returns the estimated treatment effect for the treated population (ATT).** This will take a couple steps. The ATT is the average effect for individuals who receive treatment. In this scenario, the treatment is smoking cigarettes. For more information on the ATT and the application of this question, check out this [resource]("https://docs.google.com/document/d/1nLKtQIEzRLPDKxxmLHvBCra81BKzBDwhEzivzkz12DI/edit?tab=t.0")
+**Write a function `estimate_att` that takes a linear model and a data frame as the input and returns the estimated treatment effect for the treated population (ATT).** This will take a couple steps. The ATT is the average effect for individuals who receive treatment. In this scenario, the treatment is smoking cigarettes. For more information on the ATT and the application of this question, check out this [resource]("ATT_Explanation.html").
 
 
 **6a. Copy the second linear model you made in question 5 to the code chunk below. Change the code so that the data referenced is a subset of the with only mothers that do not smoke. Also delete `cigs` from the regression. Store this model into a variable This variable will be the input for the function you write in step 6b**
