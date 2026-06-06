@@ -69,7 +69,7 @@ data <- data |>
 
 
 ### Question 3: Table Creation 
-**Create a table that shows, for each level of `cig_level`, a count of individuals and the average `bwght`, `motheduc`, `fatheduc`, and `cigprice`. Order the table from highest to lowest `bwght`**
+**Create a table that shows, for each level of `cig_level`, a count of individuals and the average `bwght`, `motheduc`, `fatheduc`, and `cigprice`. Order the table from highest to lowest `bwght`.**
 
 ```{r}
 data |>
@@ -126,7 +126,7 @@ data |>
 
 ### Question 5: lm function
 
-**Use the `lm()` function in R to create a linear model for the effect of the mother smoking cigarettes, `cigs` on the birth weight of the baby in ounces, `bwght`. Create another linear model that adds controls for `faminc`, `fatheduc`, `motheduc`, `parity`, `male`, `white`.** Use a function from the `broom` package to nicely output the information from these models as a table. What is the difference in the coefficient on `cigs`? Why do you think this is? What does the coefficient represent?
+**Use the `lm()` function in R to create a linear model for the effect of the mother smoking cigarettes, `cigs` on the birth weight of the baby in ounces, `bwght`. Create another linear model that adds controls for `faminc`, `fatheduc`, `motheduc`, `parity`, `male`, `white`.** Use a function from the `broom` package and `kable()` to nicely output the information from these models as a table. What is the difference in the coefficient on `cigs`? Why do you think this is? What does the coefficient represent?
 
 
 
@@ -134,14 +134,16 @@ data |>
 simple <- lm(bwght ~ cigs,
    data = data)
 
-tidy(simple)
+tidy(simple) |>
+  kable()
 ```
 
 ```{r}
 multiple <- lm(bwght ~ cigs + faminc + fatheduc + motheduc + parity + male + white,
    data = data)
 
-tidy(multiple)
+tidy(multiple) |>
+  kable()
 ```
 Suggested response to analysis questions:
 The difference in the coefficient on cigs is 0.084. This is because the multiple regression controls for more factor that affect both `cigs` and `bwght`. The coefficient represent the average change in ounces of a baby's birth weight for the mother smoking one additional cigarette.
@@ -151,7 +153,7 @@ The difference in the coefficient on cigs is 0.084. This is because the multiple
 
 **Write a function `estimate_att` that takes a linear model and a data frame as the input and returns the estimated treatment effect for the treated population (ATT).** This will take a couple steps. The ATT is the average effect for individuals who receive treatment. In this scenario, the treatment is smoking cigarettes. If you want to learn more about the ATT and its application, check out this [resource](ATT_Explanation.pdf).
 
-**6a. Copy the second linear model you made in question 5 to the code chunk below. Change the code so that the data referenced is a subset of the with only mothers that do not smoke. Also delete `cigs` from the regression. Store this model into a variable This variable will be the input for the function you write in step 6b**
+**6a. Copy the second linear model you made in question 5 to the code chunk below. Change the code so that the data referenced is a subset of the with only mothers that do not smoke. Also delete `cigs` from the regression. Store this model into a variable This variable will be the input for the function you write in step 6b.**
 
 ```{r}
 mod <- lm(bwght ~ faminc + fatheduc + motheduc + parity + male + white,
@@ -184,13 +186,13 @@ estimate_att <- function(model, df) {
   
 ```
 
-**6c. Test estimate_att() out on the data using the model from part a.** 
+**6c. Test estimate_att() out on the data using the model from part 6a.** 
 
 ```{r}
 estimate_att(mod, data)
 ```
 
-**6d. You will notice the ATT in 6c is very different from the coefficient on cigs in problem 5. This is because cigs is continuous, while we used the binary treatment variable `treat`. To compare the ATT to the effect of `treat on the whole population, run the multiple regression from question 5 but replace `cigs` with `treat`. What is the difference in the coefficient on `treat`?**
+**6d. You will notice the ATT in 6c is very different from the coefficient on cigs in problem 5. This is because cigs is continuous, while we used the binary treatment variable `treat`. To compare the ATT to the effect of `treat` on the whole population, run the multiple regression from question 5 but replace `cigs` with `treat`. What is the difference in the coefficient on `treat`?**
 
 ```{r}
 lm(bwght ~ treat + faminc + fatheduc + motheduc + parity + male + white,
@@ -230,27 +232,7 @@ data |>
 ```
 
 
-### Question 8: MR plot creation
-
-**Explore the relationship between family income, cigarettes smoked during pregnancy, and child birth weight. To do this, create a multiple regression model with two explanatory variables (`cigs` and `faminc`) and one response variable (`bwght`). Your final submission should include your code and a tidy summary of the model. Once you have these, assess how good your model is at predicting a child's birth weight. Support your answer.**
-
-Suggested response to analysis question:
-This model is not very good at predicting a child's birth weight. Its adjusted R-squared is only 0.0284. That is, adjusting for the number of predictors in the model (as R-squared always increases with added predictors), only 2.84 percent of the total variation in the data is explained by our model.
-
-:::callout-tip
-Don't overthink the creation of the regression model object, but feel free to check the documentation of the lm() function.
-:::
-
-```{r}
-
-MR_model <- lm(bwght ~ faminc + cigs,
-               data = data)
-summary(MR_model)
-
-```
-
-
-### Question 9: Inference Using Model Validation
+### Question 8: Inference Using Model Validation
 
 **For this question, we are interested in the difference between the `bwght` of children whose mother did smoke and the `bwght` of children whose mother did not smoke. Specifically, we want to investigate the relative normality of each subset of data. State your conclusions from an examinations of both plots. You may want to discuss the following, along with more general conclusions about the effects of smoking on `bwght`: does either subset of the data appear to be normally distributed? Is one more closely adherent to the normal distribution than the other? Why might that be? Is it possible that other lifestyle factors influencing `bwght` differ more among one group than the other (hint: look at your created table above and think about the differences in other lifestyle facts)?**
 
