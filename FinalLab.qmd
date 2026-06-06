@@ -26,6 +26,8 @@ The full data dictionary for this dataset can be accessed here: [Data Dictionary
 
 
 ### Question 0: Data & Package Loading
+
+**Load appropriate packages and download and load the appropriate `bwght` dataset. The dataset is available [here](https://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&product_isbn_issn=9781111531041). You will need to extract the files in the downloaded .zip folder and move the only necessary .Rdata file to your working directory for this lab. **
 ```{r}
 # Data
 load("bwght.RData")
@@ -182,6 +184,9 @@ estimate_att(mod, data)
 
 **Recreate something similar to the above graph showing the relationship of `bwght` and `faminc` across the different levels of `treat` and `male` (i.e., whether the mother smoked during pregnancy and whether the child was male or female). Then, discuss what you observe. Is there one combination of `treat` and `male` levels that appears to particularly strengthen the relationship between `faminc` and `bwght`? Then consider the data ethics concerns present in such a question. Should we make these sort of generalized statements with data? What do we not know about this dataset that we might want to learn before making any sort of general inference about the population?**
 
+Suggested response to analysis questions:
+The combination of smoker mother and male child seems to have the strongest effect on the strength of relationship between `faminc` and `bwght`. However, there is much to consider and keep in mind when considering this sort of data, and making this sort of inference. There is much we don't know about this dataset, such as the bias of its creators, the ethical nature of its creation, and much more that can seriously influence the reliability and interpretability of the dataset. So we should proceed with extreme care, and with knowledge of the limited nature of the inferences available to us, when examining data such as this. We would want to know a lot about the research and data collection methodology, the data ethics intentions of the dataset creators, and the overall sociological implications of the dataset in order to make more concrete inferences. And, importantly, we always want to keep respect and humanity at top of mind when considering statistics that reflect real people.
+
 ```{r}
 
 data |>
@@ -209,6 +214,7 @@ data |>
 
 **Explore the relationship between family income, cigarettes smoked during pregnancy, and child birth weight. To do this, create a multiple regression model with two explanatory variables (`cigs` and `faminc`) and one response variable (`bwght`). Your final submission should include your code and a tidy summary of the model. Once you have these, assess how good your model is at predicting a child's birth weight. Support your answer.**
 
+Suggested response to analysis question:
 This model is not very good at predicting a child's birth weight. Its adjusted R-squared is only 0.0284. That is, adjusting for the number of predictors in the model (as R-squared always increases with added predictors), only 2.84 percent of the total variation in the data is explained by our model.
 
 :::callout-tip
@@ -226,7 +232,10 @@ summary(MR_model)
 
 ### Question 9: Inference Using Model Validation
 
-**For this question, we are interested in the difference between the `bwght` of children whose mother did smoke and the `bwght` of children whose mother did not smoke. Specifically, we want to investigate the relative normality of each subset of data. State your conclusions from an examinations of both plots. You may want to discuss the following, along with more general conckusions about the effects of smoking on `bwght`: does either subset of the data appear to be normally distributed? Is one more closely adherent to the normal distribution than the other? Why might that be? Is it possible that other lifestyle factors influencing `bwght` differ more among one group than the other (hint: look at your created table above and think about the differences in other lifestyle facts)?**
+**For this question, we are interested in the difference between the `bwght` of children whose mother did smoke and the `bwght` of children whose mother did not smoke. Specifically, we want to investigate the relative normality of each subset of data. State your conclusions from an examinations of both plots. You may want to discuss the following, along with more general conclusions about the effects of smoking on `bwght`: does either subset of the data appear to be normally distributed? Is one more closely adherent to the normal distribution than the other? Why might that be? Is it possible that other lifestyle factors influencing `bwght` differ more among one group than the other (hint: look at your created table above and think about the differences in other lifestyle facts)?**
+
+Suggested response to analysis questions:
+The q-q plot for smokers seems to contain less variation from the normal line, indicating that that subset may be more normally distributed. The q-q plot for non-smokers seems to indicate that there is a greater amount of children of non-smokers being born at lower-than-expected weights. This could possibly be due to greater lifestyle similarities among smokers than among non-smokers, as smoking could be a unifying characteristic that leads to greater overall similarity in outcomes like child birth weight. However, this is just a possibility, and more sophisticated and ethical investigation would need to be done to make any firm conclusions here. 
 
 ::: callout-tip
 To compare relative normality, you'll need to use q-q plots. Look at the documentation for those ggplot geoms for help!
