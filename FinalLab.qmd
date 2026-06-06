@@ -103,7 +103,7 @@ data |>
     title = md("**Average Family Demographics and Baby Birthweight by Number of Cigarettes Smoked While Pregnant**")
   ) |>
   cols_label(
-    "n()" = "Number of Individuals"
+    "n()" = "Number of Individuals",
     "cig_level" = "Cigarattes Smoked Per Day",
     "av_bwght" = "Birth Weight",
     "av_motheduc" = "Mother's Years of Education",
