@@ -131,6 +131,7 @@ data |>
 
 
 ```{r}
+# Simple Regression
 simple <- lm(bwght ~ cigs,
    data = data)
 
@@ -139,6 +140,7 @@ tidy(simple) |>
 ```
 
 ```{r}
+# Multiple Regression
 multiple <- lm(bwght ~ cigs + faminc + fatheduc + motheduc + parity + male + white,
    data = data)
 
@@ -183,7 +185,6 @@ estimate_att <- function(model, df) {
   # Step 4
   mean(df$ITE[df$treat == 1], na.rm = TRUE)
 }
-  
 ```
 
 **6c. Test estimate_att() out on the data using the model from part 6a.** 
@@ -210,7 +211,6 @@ Suggested response to analysis questions:
 The combination of smoker mother and male child seems to have the strongest effect on the strength of relationship between `faminc` and `bwght`. However, there is much to consider and keep in mind when considering this sort of data, and making this sort of inference. There is much we don't know about this dataset, such as the bias of its creators, the ethical nature of its creation, and much more that can seriously influence the reliability and interpretability of the dataset. So we should proceed with extreme care, and with knowledge of the limited nature of the inferences available to us, when examining data such as this. We would want to know a lot about the research and data collection methodology, the data ethics intentions of the dataset creators, and the overall sociological implications of the dataset in order to make more concrete inferences. And, importantly, we always want to keep respect and humanity at the top of mind when considering statistics that reflect real people.
 
 ```{r}
-
 data |>
   mutate(
     status = factor(treat, levels = c(0,1), labels = c("Non-Smoker", "Smoker")),

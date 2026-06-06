@@ -1,8 +1,4 @@
 ---
-title: "FinalLabBlank"
-format: html
----
----
 title: "Final Lab"
 author: "Cole Stanford and JP Killmond"
 format: 
@@ -19,26 +15,27 @@ execute:
   warning: false
 ---
 
-### The Data
+## The Data
 
 For this lab, we will be using the Wooldridge bwght dataset. It is a cross-sectional dataset often used in introductory econometrics to study how family, parental, and pregnancy-related factors are associated with infant birth weight. The dataset contains 1388 observations and 14 variables. Each observation represents one child, with information on its birth weight. Additionally, each observation has data on family information that could contribute to the baby's birth weight, including income, parental education, birth order, sex, race, and the number of cigarettes smoked a day by the mother.
 
-The data is in a .RData so it is easy to access. The data includes a data frame named `data`, which contains the information described above. It also includes a data frame named `desc`, which serves as a data dictionary.
+The data is in a .RData so it is easy to access. The data includes a data frame named `data`, which contains the information described above. It also includes a data frame named `desc`, which serves as a brief data dictionary.
 
 
-The data dictionary for this dataset can be accessed here: https://justinmshea.github.io/wooldridge/reference/bwght.html
+The full data dictionary for this dataset can be accessed here: [Data Dictionary](https://justinmshea.github.io/wooldridge/reference/bwght.html)
 
 
 ### Question 0: Data & Package Loading
+
+**Load appropriate packages and download and load the appropriate `bwght` dataset. The dataset is available [here](https://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&product_isbn_issn=9781111531041). You will need to extract the files in the downloaded .zip folder and move the only necessary .Rdata file to your working directory for this lab. **
 ```{r}
 # Data
-load("bwght.RData")
+
 ```
+
 ```{r}
 # Packages
-library(tidyverse)
-library(knitr)
-library(gt)
+
 ```
 
 
@@ -51,64 +48,21 @@ library(gt)
 
 ### Question 2: Factor and Dummy Variable Creation Using case_when()
 
-**Create a new factor variable `cig_level`, which reflects the the number of cigarettes smoked by the mother. 0 is "none", 1-3 is "low", 4-9 is "moderate", 10-20 is "high", and 20+ is "very high. Additionally, create a dummy variable called `treat`. This will be 0 if the mother doesn't smoke and 1 if the mother does smoke. Do this in one pipeline."**
+**Create a new factor variable `cig_level`, which reflects the number of cigarettes smoked by the mother. 0 is "none", 1-3 is "low", 4-10 is "moderate", 11-20 is "high", and 21+ is "very high. Additionally, create a dummy variable called `treat`. This will be 0 if the mother doesn't smoke and 1 if the mother does smoke. Do this in one pipeline."**
 
 ```{r}
 
 ```
 
 
-### Question 3: lm function
-
-**Use the `lm()` function in R to create a linear model for the effect of the mother smoking cigarettes, `cigs` on the birth weight of the baby in ounces, `bwght`. Create another linear model that adds controls for `faminc`, `fatheduc`, `motheduc`, `parity`, `male`, `white`.**
-
-```{r}
-
-```
-
-### Question 4: Function Writing and Subsetting Data
-
-**Write a function `estimate_att` that takes a linear model and a data frame as the input and returns the estimated treatment effect for the treated population (ATT).** This will take a couple steps. The ATT is the average effect for individuals who receive treatment. In this scenario, the treatment is smoking cigarettes. 
-
-
-**4a. Copy the second linear model you made in question 2 to the code chunk below. Change the code so that the data referenced is a subset of the with only mothers that do not smoke. Also delete `cigs` from the regression. Store this model into a variable This variable will be the input for the function you write in step 3b**
+### Question 3: Table Creation 
+**Create a table that shows, for each level of `cig_level`, a count of individuals and the average `bwght`, `motheduc`, `fatheduc`, and `cigprice`. Order the table from highest to lowest `bwght`.**
 
 ```{r}
 
 ```
 
-
-**4b. Write the function to predict the ATT, as described in 3. The linear model the function takes as an argument will already be created from step 2a.**
-
-Steps:
-
-1. Use the model from the function input to predict the potential result of not smoking on birth weight for the entire population.
-2. Subtract the actual results (`bwght`) from the prediction. 
-3. Add the results of step 3 to a new column in the data set called `ITE`. 
-4. Calculate the mean of the `ITE` column for individuals with `treat` equal to one This is the value we want to return.
-
-::: callout-tip
-You will want to check out the `predict()` function to help with step 1.
-:::
-
-```{r}
-
-```
-
-**4c. Test estimate_att() out on the data using the model from part a.**
-
-```{r}
-estimate_att(mod, data)
-```
-
-### Question 5: Table Creation 
-**Create a table that shows, for each level of `cig_level`, the average `bwght`, `motheduc`, `fatheduc`, and `cigprice`. Order the table from highest to lowest baby birth weight**
-
-```{r}
-
-```
-
-### Question 6: Table Formatting
+### Question 4: Table Formatting
 
 **Nicely format the table using `gt` or `kable()` and `kableExtra`**
 
@@ -124,25 +78,83 @@ Your table should include:
 ```
 
 
-### Question 6: ggplot
+### Question 5: lm function
 
-**Create a scatter plot with an overlaid line of best fit displaying the relationship between the number of daily cigarettes the mother smoked per day while pregnant and the birth weight of the child. Include good formatting (chart title, axis labels, accessibility, etc.). **
+**Use the `lm()` function in R to create a linear model for the effect of the mother smoking cigarettes, `cigs` on the birth weight of the baby in ounces, `bwght`. Create another linear model that adds controls for `faminc`, `fatheduc`, `motheduc`, `parity`, `male`, `white`.** Use a function from the `broom` package and `kable()` to nicely output the information from these models as a table. What is the difference in the coefficient on `cigs`? Why do you think this is? What does the coefficient represent?
+
+
 
 ```{r}
-  
+# Simple Regression
+
+```
+
+```{r}
+# Multiple Regression
+
 ```
 
 
-### Question 7: MR plot creation
+### Question 6: Function Writing and Subsetting Data
 
-**Explore the relationship between family income, cigarettes smoked during pregnancy, and child birth weight. To do this, create a multiple regression model with two explanatory variables (`cigs` and `faminc`) and one response variable (`bwght`). Your final submission should include your code and a tidy summary of the model. Once you have these, assess how good your model is at predicting a child's birth weight. Support your answer.**
+**Write a function `estimate_att` that takes a linear model and a data frame as the input and returns the estimated treatment effect for the treated population (ATT).** This will take a couple steps. The ATT is the average effect for individuals who receive treatment. In this scenario, the treatment is smoking cigarettes. If you want to learn more about the ATT and its application, check out this [resource](ATT_Explanation.pdf).
 
-This model is not very good at predicting a child's birth weight. Its adjusted R-squared is only 0.0284. That is, adjusting for the number of predictors in the model (as R-squared always increases with added predictors), only 2.84 percent of the total variation in the data is explained by our model.
+**6a. Copy the second linear model you made in question 5 to the code chunk below. Change the code so that the data referenced is a subset of the data with only mothers that do not smoke. Also delete `cigs` from the regression. Store this model into a variable This variable will be the input for the function you write in step 6b.**
 
-:::callout-tip
-Don't overthink the creation of the regression model object, but feel free to check the documentation of the lm() function.
+```{r}
+
+```
+
+
+**6b. Write the function to predict the ATT, as described in 6. The linear model the function takes as an argument will already be created from step 6a.**
+
+Steps:
+
+1. Use the model from the function input to predict the potential result of not smoking on `bwght` for the entire population.
+2. Subtract the actual results (`bwght`) from the prediction. 
+3. Add the results of step 3 to a new column in the data set called `ITE`. 
+4. Calculate the mean of the `ITE` column for individuals with `treat` equal to one This is the value we want to return.
+
+::: callout-tip
+You will want to check out the `predict()` function to help with step 1.
 :::
 
 ```{r}
 
 ```
+
+**6c. Test estimate_att() out on the data using the model from part 6a.** 
+
+```{r}
+
+```
+
+**6d. You will notice the ATT in 6c is very different from the coefficient on cigs in problem 5. This is because `cigs` is discrete, while we used the binary treatment variable `treat`. To compare the ATT to the effect of `treat` on the whole population, run the multiple regression from question 5 but replace `cigs` with `treat`. What is the difference in the coefficient on `treat`?**
+
+```{r}
+
+```
+
+
+### Question 7: ggplot & Data Ethics
+
+![Plot to recreate](ggplot.png)
+
+**Recreate something similar to the above graph showing the relationship of `bwght` and `faminc` across the different levels of `treat` and `male` (i.e., whether the mother smoked during pregnancy and whether the child was male or female). Then, discuss what you observe. Is there one combination of `treat` and `male` levels that appears to particularly strengthen the relationship between `faminc` and `bwght`? Then consider the data ethics concerns present in such a question. Should we make these sort of generalized statements with data? What do we not know about this dataset that we might want to learn before making any sort of general inference about the population?**
+
+```{r}
+         
+```
+
+
+### Question 8: Inference Using Model Validation
+
+**For this question, we are interested in the difference between the `bwght` of children whose mother did smoke and the `bwght` of children whose mother did not smoke. Specifically, we want to investigate the relative normality of each subset of data. State your conclusions from an examination of both plots. You may want to discuss the following, along with more general conclusions about the effects of smoking on `bwght`: does either subset of the data appear to be normally distributed? Is one more closely adherent to the normal distribution than the other? Why might that be? Is it possible that other lifestyle factors influencing `bwght` differ more among one group than the other (hint: look at your created table above and think about the differences in other lifestyle facts)?**
+
+::: callout-tip
+To compare relative normality, you'll need to use q-q plots. Look at the documentation for those ggplot geoms for help!
+:::
+```{r}
+
+```
+
