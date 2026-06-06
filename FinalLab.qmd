@@ -32,11 +32,13 @@ The full data dictionary for this dataset can be accessed here: [Data Dictionary
 # Data
 load("bwght.RData")
 ```
+
 ```{r}
 # Packages
 library(tidyverse)
 library(knitr)
 library(gt)
+library(broom)
 ```
 
 
@@ -124,19 +126,30 @@ data |>
 
 ### Question 5: lm function
 
-**Use the `lm()` function in R to create a linear model for the effect of the mother smoking cigarettes, `cigs` on the birth weight of the baby in ounces, `bwght`. Create another linear model that adds controls for `faminc`, `fatheduc`, `motheduc`, `parity`, `male`, `white`.**
+**Use the `lm()` function in R to create a linear model for the effect of the mother smoking cigarettes, `cigs` on the birth weight of the baby in ounces, `bwght`. Create another linear model that adds controls for `faminc`, `fatheduc`, `motheduc`, `parity`, `male`, `white`.** Use a function from the `broom` package to nicely output the information from these models as a table. What is the difference in the coefficient on `cigs`? Why do you think this is? What does the coefficient represent?
+
+
 
 ```{r}
-lm(bwght ~ cigs,
+simple <- lm(bwght ~ cigs,
    data = data)
-lm(bwght ~ cigs + faminc + fatheduc + motheduc + parity + male + white,
-   data = data)
+
+tidy(simple)
 ```
+
+```{r}
+multiple <- lm(bwght ~ cigs + faminc + fatheduc + motheduc + parity + male + white,
+   data = data)
+
+tidy(multiple)
+```
+Suggested response to analysis questions:
+The difference in the coefficient on cigs is 0.084. This is because the multiple regression controls for more factor that affect both `cigs` and `bwght`. The coefficient represent the average change in ounces of a baby's birth weight for the mother smoking one additional cigarette.
+
 
 ### Question 6: Function Writing and Subsetting Data
 
 **Write a function `estimate_att` that takes a linear model and a data frame as the input and returns the estimated treatment effect for the treated population (ATT).** This will take a couple steps. The ATT is the average effect for individuals who receive treatment. In this scenario, the treatment is smoking cigarettes. If you want to learn more about the ATT and its application, check out this [resource](ATT_Explanation.pdf).
-
 
 **6a. Copy the second linear model you made in question 5 to the code chunk below. Change the code so that the data referenced is a subset of the with only mothers that do not smoke. Also delete `cigs` from the regression. Store this model into a variable This variable will be the input for the function you write in step 6b**
 
@@ -171,10 +184,17 @@ estimate_att <- function(model, df) {
   
 ```
 
-**6c. Test estimate_att() out on the data using the model from part a.**
+**6c. Test estimate_att() out on the data using the model from part a.** 
 
 ```{r}
 estimate_att(mod, data)
+```
+
+**6d. You will notice the ATT in 6c is very different from the coefficient on cigs in problem 5. This is because cigs is continuous, while we used the binary treatment variable `treat`. To compare the ATT to the effect of `treat on the whole population, run the multiple regression from question 5 but replace `cigs` with `treat`. What is the difference in the coefficient on `treat`?**
+
+```{r}
+lm(bwght ~ treat + faminc + fatheduc + motheduc + parity + male + white,
+   data = data)
 ```
 
 
