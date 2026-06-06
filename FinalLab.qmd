@@ -54,7 +54,7 @@ data <- data |>
 
 ### Question 2: Factor and Dummy Variable Creation Using case_when()
 
-**Create a new factor variable `cig_level`, which reflects the the number of cigarettes smoked by the mother. 0 is "none", 1-3 is "low", 4-10 is "moderate", 11-20 is "high", and 21+ is "very high. Additionally, create a dummy variable called `treat`. This will be 0 if the mother doesn't smoke and 1 if the mother does smoke. Do this in one pipeline."**
+**Create a new factor variable `cig_level`, which reflects the number of cigarettes smoked by the mother. 0 is "none", 1-3 is "low", 4-10 is "moderate", 11-20 is "high", and 21+ is "very high. Additionally, create a dummy variable called `treat`. This will be 0 if the mother doesn't smoke and 1 if the mother does smoke. Do this in one pipeline."**
 
 ```{r}
 data <- data |>
@@ -112,7 +112,7 @@ data |>
     "av_bwght" = "Birth Weight",
     "av_motheduc" = "Mother's Years of Education",
     "av_fatheduc" = "Father's Years of Education",
-    "av_cigprice" = "Price of Cigarette"
+    "av_cigprice" = "Price of Cigarettes"
   ) |>
   fmt_currency(
     columns = av_cigprice,
@@ -146,14 +146,14 @@ tidy(multiple) |>
   kable()
 ```
 Suggested response to analysis questions:
-The difference in the coefficient on cigs is 0.084. This is because the multiple regression controls for more factor that affect both `cigs` and `bwght`. The coefficient represent the average change in ounces of a baby's birth weight for the mother smoking one additional cigarette.
+The difference in the coefficient on cigs is 0.084. This is because the multiple regression controls for more factors that affect both `cigs` and `bwght`. The coefficient represents the average change in ounces of a baby's birth weight for the mother smoking one additional cigarette.
 
 
 ### Question 6: Function Writing and Subsetting Data
 
 **Write a function `estimate_att` that takes a linear model and a data frame as the input and returns the estimated treatment effect for the treated population (ATT).** This will take a couple steps. The ATT is the average effect for individuals who receive treatment. In this scenario, the treatment is smoking cigarettes. If you want to learn more about the ATT and its application, check out this [resource](ATT_Explanation.pdf).
 
-**6a. Copy the second linear model you made in question 5 to the code chunk below. Change the code so that the data referenced is a subset of the with only mothers that do not smoke. Also delete `cigs` from the regression. Store this model into a variable This variable will be the input for the function you write in step 6b.**
+**6a. Copy the second linear model you made in question 5 to the code chunk below. Change the code so that the data referenced is a subset of the data with only mothers that do not smoke. Also delete `cigs` from the regression. Store this model into a variable This variable will be the input for the function you write in step 6b.**
 
 ```{r}
 mod <- lm(bwght ~ faminc + fatheduc + motheduc + parity + male + white,
@@ -192,7 +192,7 @@ estimate_att <- function(model, df) {
 estimate_att(mod, data)
 ```
 
-**6d. You will notice the ATT in 6c is very different from the coefficient on cigs in problem 5. This is because cigs is continuous, while we used the binary treatment variable `treat`. To compare the ATT to the effect of `treat` on the whole population, run the multiple regression from question 5 but replace `cigs` with `treat`. What is the difference in the coefficient on `treat`?**
+**6d. You will notice the ATT in 6c is very different from the coefficient on cigs in problem 5. This is because `cigs` is discrete, while we used the binary treatment variable `treat`. To compare the ATT to the effect of `treat` on the whole population, run the multiple regression from question 5 but replace `cigs` with `treat`. What is the difference in the coefficient on `treat`?**
 
 ```{r}
 lm(bwght ~ treat + faminc + fatheduc + motheduc + parity + male + white,
@@ -207,7 +207,7 @@ lm(bwght ~ treat + faminc + fatheduc + motheduc + parity + male + white,
 **Recreate something similar to the above graph showing the relationship of `bwght` and `faminc` across the different levels of `treat` and `male` (i.e., whether the mother smoked during pregnancy and whether the child was male or female). Then, discuss what you observe. Is there one combination of `treat` and `male` levels that appears to particularly strengthen the relationship between `faminc` and `bwght`? Then consider the data ethics concerns present in such a question. Should we make these sort of generalized statements with data? What do we not know about this dataset that we might want to learn before making any sort of general inference about the population?**
 
 Suggested response to analysis questions:
-The combination of smoker mother and male child seems to have the strongest effect on the strength of relationship between `faminc` and `bwght`. However, there is much to consider and keep in mind when considering this sort of data, and making this sort of inference. There is much we don't know about this dataset, such as the bias of its creators, the ethical nature of its creation, and much more that can seriously influence the reliability and interpretability of the dataset. So we should proceed with extreme care, and with knowledge of the limited nature of the inferences available to us, when examining data such as this. We would want to know a lot about the research and data collection methodology, the data ethics intentions of the dataset creators, and the overall sociological implications of the dataset in order to make more concrete inferences. And, importantly, we always want to keep respect and humanity at top of mind when considering statistics that reflect real people.
+The combination of smoker mother and male child seems to have the strongest effect on the strength of relationship between `faminc` and `bwght`. However, there is much to consider and keep in mind when considering this sort of data, and making this sort of inference. There is much we don't know about this dataset, such as the bias of its creators, the ethical nature of its creation, and much more that can seriously influence the reliability and interpretability of the dataset. So we should proceed with extreme care, and with knowledge of the limited nature of the inferences available to us, when examining data such as this. We would want to know a lot about the research and data collection methodology, the data ethics intentions of the dataset creators, and the overall sociological implications of the dataset in order to make more concrete inferences. And, importantly, we always want to keep respect and humanity at the top of mind when considering statistics that reflect real people.
 
 ```{r}
 
@@ -234,10 +234,10 @@ data |>
 
 ### Question 8: Inference Using Model Validation
 
-**For this question, we are interested in the difference between the `bwght` of children whose mother did smoke and the `bwght` of children whose mother did not smoke. Specifically, we want to investigate the relative normality of each subset of data. State your conclusions from an examinations of both plots. You may want to discuss the following, along with more general conclusions about the effects of smoking on `bwght`: does either subset of the data appear to be normally distributed? Is one more closely adherent to the normal distribution than the other? Why might that be? Is it possible that other lifestyle factors influencing `bwght` differ more among one group than the other (hint: look at your created table above and think about the differences in other lifestyle facts)?**
+**For this question, we are interested in the difference between the `bwght` of children whose mother did smoke and the `bwght` of children whose mother did not smoke. Specifically, we want to investigate the relative normality of each subset of data. State your conclusions from an examination of both plots. You may want to discuss the following, along with more general conclusions about the effects of smoking on `bwght`: does either subset of the data appear to be normally distributed? Is one more closely adherent to the normal distribution than the other? Why might that be? Is it possible that other lifestyle factors influencing `bwght` differ more among one group than the other (hint: look at your created table above and think about the differences in other lifestyle facts)?**
 
 Suggested response to analysis questions:
-The q-q plot for smokers seems to contain less variation from the normal line, indicating that that subset may be more normally distributed. The q-q plot for non-smokers seems to indicate that there is a greater amount of children of non-smokers being born at lower-than-expected weights. This could possibly be due to greater lifestyle similarities among smokers than among non-smokers, as smoking could be a unifying characteristic that leads to greater overall similarity in outcomes like child birth weight. However, this is just a possibility, and more sophisticated and ethical investigation would need to be done to make any firm conclusions here. 
+The q-q plot for smokers seems to contain less variation from the normal line, indicating that that subset may be more normally distributed. The q-q plot for non-smokers seems to indicate that there is a greater number of children of non-smokers being born at lower-than-expected weights. This could possibly be due to greater lifestyle similarities among smokers than among non-smokers, as smoking could be a unifying characteristic that leads to greater overall similarity in outcomes like child birth weight. However, this is just a possibility, and more sophisticated and ethical investigation would need to be done to make any firm conclusions here. 
 
 ::: callout-tip
 To compare relative normality, you'll need to use q-q plots. Look at the documentation for those ggplot geoms for help!
